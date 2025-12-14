@@ -359,14 +359,27 @@ export const GraphCanvas: React.FC<GraphCanvasProps> = ({
         <div
             ref={containerRef}
             className="w-full h-full relative overflow-hidden cursor-grab active:cursor-grabbing"
-            style={{ background: 'var(--vscode-editor-background)' }}
+            style={{
+                background: `linear-gradient(135deg, 
+                    var(--vscode-editor-background) 0%, 
+                    color-mix(in srgb, var(--vscode-sideBar-background) 60%, var(--vscode-editor-background)) 50%,
+                    var(--vscode-editor-background) 100%)`
+            }}
             onClick={handleBgClick}
         >
+            {/* Subtle vignette overlay for depth */}
             <div
-                className="absolute inset-0 opacity-20 pointer-events-none"
+                className="absolute inset-0 pointer-events-none"
                 style={{
-                    backgroundImage: `radial-gradient(circle at 2px 2px, var(--vscode-panel-border, #363B49) 1px, transparent 0)`,
-                    backgroundSize: '40px 40px',
+                    background: `radial-gradient(ellipse at center, transparent 0%, color-mix(in srgb, var(--vscode-editor-background) 40%, transparent) 100%)`,
+                }}
+            />
+            {/* Grid pattern */}
+            <div
+                className="absolute inset-0 opacity-30 pointer-events-none"
+                style={{
+                    backgroundImage: `radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--vscode-editorLineNumber-foreground, var(--vscode-panel-border)) 60%, transparent) 1px, transparent 0)`,
+                    backgroundSize: '32px 32px',
                     transform: `translate(${zoomTransform.x}px, ${zoomTransform.y}px) scale(${zoomTransform.k})`,
                     transformOrigin: '0 0'
                 }}
@@ -422,13 +435,30 @@ export const GraphCanvas: React.FC<GraphCanvasProps> = ({
                 </div>
             )}
 
-            <div className="absolute bottom-6 left-6 p-4 rounded-xl pointer-events-auto transition-opacity duration-300 hover:opacity-100 opacity-60" style={{ background: 'color-mix(in srgb, var(--vscode-sideBar-background) 90%, transparent)', backdropFilter: 'blur(12px)', border: '1px solid var(--vscode-panel-border)' }}>
-                <h3 className="text-xs font-bold uppercase mb-2" style={{ color: 'var(--vscode-descriptionForeground)' }}>Graph Legend</h3>
-                <div className="space-y-1.5 text-xs" style={{ color: 'var(--vscode-editor-foreground)' }}>
-                    <div className="flex items-center"><div className="w-3 h-3 rounded-full mr-2" style={{ background: 'var(--vscode-focusBorder, #6E8FEE)' }}></div>calls (Function Call)</div>
-                    <div className="flex items-center"><div className="w-3 h-3 rounded-full mr-2" style={{ background: 'var(--vscode-terminal-ansiGreen, #4ADE80)' }}></div>imports (Belongs To)</div>
+            <div
+                className="absolute bottom-6 left-6 p-4 rounded-xl pointer-events-auto transition-all duration-300 hover:opacity-100 opacity-70 hover:scale-105"
+                style={{
+                    background: 'color-mix(in srgb, var(--vscode-sideBar-background) 95%, transparent)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid color-mix(in srgb, var(--vscode-panel-border) 80%, transparent)',
+                    boxShadow: '0 8px 32px -8px color-mix(in srgb, black 40%, transparent)'
+                }}
+            >
+                <h3 className="text-xs font-bold uppercase mb-3 tracking-wide" style={{ color: 'var(--vscode-descriptionForeground)' }}>Graph Legend</h3>
+                <div className="space-y-2 text-xs" style={{ color: 'var(--vscode-editor-foreground)' }}>
+                    <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full mr-2.5 shadow-sm" style={{ background: 'var(--vscode-focusBorder, #6E8FEE)', boxShadow: '0 0 8px color-mix(in srgb, var(--vscode-focusBorder) 50%, transparent)' }}></div>
+                        <span style={{ opacity: 0.9 }}>calls (Function Call)</span>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full mr-2.5 shadow-sm" style={{ background: 'var(--vscode-terminal-ansiGreen, #4ADE80)', boxShadow: '0 0 8px color-mix(in srgb, var(--vscode-terminal-ansiGreen) 50%, transparent)' }}></div>
+                        <span style={{ opacity: 0.9 }}>imports (Belongs To)</span>
+                    </div>
                     {(layoutMode === 'semantic' || edgeFilters.showSemantic) && (
-                        <div className="flex items-center"><div className="w-3 h-3 rounded-full mr-2" style={{ background: 'var(--vscode-textLink-foreground, #A78BFA)' }}></div>semantic (AI Similarity)</div>
+                        <div className="flex items-center">
+                            <div className="w-3 h-3 rounded-full mr-2.5 shadow-sm" style={{ background: 'var(--vscode-textLink-foreground, #A78BFA)', boxShadow: '0 0 8px color-mix(in srgb, var(--vscode-textLink-foreground) 50%, transparent)' }}></div>
+                            <span style={{ opacity: 0.9 }}>semantic (AI Similarity)</span>
+                        </div>
                     )}
                 </div>
             </div>

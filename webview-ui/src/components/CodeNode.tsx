@@ -172,20 +172,33 @@ export const CodeNode: React.FC<CodeNodeProps> = ({ data, scale, selected, onCli
   return (
     <div
       onClick={(e) => { e.stopPropagation(); onClick(); }}
-      className="absolute rounded-full flex items-center justify-center transition-all duration-300 shadow-lg cursor-pointer hover:scale-110 hover:brightness-125 z-0 hover:z-10"
+      className="absolute rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:brightness-110 z-0 hover:z-10"
       style={{
         width: 60,
         height: 60,
         transform: 'translate(-50%, -50%)',
         left: 0,
         top: 0,
-        background: 'var(--vscode-sideBar-background)',
-        border: `2px solid var(--vscode-panel-border)`
+        background: `linear-gradient(145deg, 
+          color-mix(in srgb, var(--vscode-sideBar-background) 100%, white 10%), 
+          var(--vscode-sideBar-background))`,
+        border: `2px solid var(--vscode-panel-border)`,
+        boxShadow: `0 4px 16px -4px color-mix(in srgb, black 50%, transparent),
+                    inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
+                    0 0 0 1px color-mix(in srgb, var(--vscode-panel-border) 30%, transparent)`
       }}
     >
       <Icon size={24} className={colorClass} />
       {/* Label below node for context */}
-      <div className="absolute top-full mt-2 px-2 py-0.5 rounded text-[10px] whitespace-nowrap pointer-events-none" style={{ background: 'color-mix(in srgb, var(--vscode-editor-background) 80%, transparent)', color: 'var(--vscode-editor-foreground)' }}>
+      <div
+        className="absolute top-full mt-2 px-2.5 py-1 rounded-md text-[10px] whitespace-nowrap pointer-events-none font-medium"
+        style={{
+          background: 'color-mix(in srgb, var(--vscode-sideBar-background) 95%, transparent)',
+          color: 'var(--vscode-editor-foreground)',
+          border: '1px solid color-mix(in srgb, var(--vscode-panel-border) 50%, transparent)',
+          boxShadow: '0 2px 8px -2px color-mix(in srgb, black 30%, transparent)'
+        }}
+      >
         {data.label}
       </div>
     </div>

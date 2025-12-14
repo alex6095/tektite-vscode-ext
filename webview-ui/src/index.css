@@ -55,9 +55,30 @@ body {
   border: 1px solid var(--vscode-panel-border);
 }
 
-/* Graph canvas background - uses editor background */
+/* Graph canvas background - uses editor background with gradient */
 .graph-canvas {
-  background: var(--vscode-editor-background);
+  background: linear-gradient(135deg,
+      var(--vscode-editor-background) 0%,
+      color-mix(in srgb, var(--vscode-sideBar-background) 60%, var(--vscode-editor-background)) 50%,
+      var(--vscode-editor-background) 100%);
+}
+
+/* Enhanced graph background with vignette */
+.graph-background {
+  background: linear-gradient(135deg,
+      var(--vscode-editor-background) 0%,
+      color-mix(in srgb, var(--vscode-sideBar-background) 50%, var(--vscode-editor-background)) 100%);
+}
+
+/* Node glow effect for emphasis */
+.node-glow {
+  box-shadow: 0 4px 20px -4px color-mix(in srgb, var(--vscode-focusBorder) 40%, transparent);
+}
+
+/* Subtle inset effect for depth */
+.node-inset {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
+    0 4px 16px -4px color-mix(in srgb, black 40%, transparent);
 }
 
 /* Node styling that adapts to theme */
