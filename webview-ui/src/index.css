@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles for VSCode WebView */
+:root {
+  /* Fallback colors when VSCode variables aren't available (dev mode) */
+  --vscode-editor-background: #0F1117;
+  --vscode-editor-foreground: #E2E8F0;
+  --vscode-sideBar-background: #1E212B;
+  --vscode-list-hoverBackground: #2A2E3B;
+  --vscode-panel-border: #363B49;
+  --vscode-focusBorder: #6E8FEE;
+  --vscode-textLink-foreground: #A78BFA;
+  --vscode-terminal-ansiGreen: #4ADE80;
+  --vscode-terminal-ansiYellow: #FBBF24;
+  --vscode-errorForeground: #EF4444;
+  --vscode-descriptionForeground: #94A3B8;
+  --vscode-activityBar-background: #1E212B;
+}
+
+body {
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  font-family: 'Inter', var(--vscode-font-family, sans-serif);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vscode-panel-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4B5563;
+}
+
+/* Glass panel effect */
+.glass-panel {
+  background: rgba(30, 33, 43, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}

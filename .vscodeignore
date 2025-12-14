@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+webview-ui/node_modules/
+
+# Source files (only dist needed)
+webview-ui/src/
+webview-ui/*.config.*
+webview-ui/*.json
+webview-ui/*.html
+webview-ui/postcss.config.js
+
+# Development files
+src/
+*.ts
+!*.d.ts
+.vscode/
+.git/
+.gitignore
+.env*
+
+# Build artifacts we don't need
+dist/
+
+# Other
+*.vsix
+*.map
+.DS_Store
