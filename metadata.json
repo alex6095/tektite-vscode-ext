@@ -1,0 +1,5 @@
+{
+  "name": "VSCode extention ver. :Tektite(MindGraph Code, Code from the stars)",
+  "description": "A knowledge-centric code editor that treats code as notes (Notion-style) and visualizes connections (Obsidian-style).",
+  "requestFramePermissions": []
+}
