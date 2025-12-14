@@ -2,22 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles for VSCode WebView */
-:root {
-  /* Fallback colors when VSCode variables aren't available (dev mode) */
-  --vscode-editor-background: #0F1117;
-  --vscode-editor-foreground: #E2E8F0;
-  --vscode-sideBar-background: #1E212B;
-  --vscode-list-hoverBackground: #2A2E3B;
-  --vscode-panel-border: #363B49;
-  --vscode-focusBorder: #6E8FEE;
-  --vscode-textLink-foreground: #A78BFA;
-  --vscode-terminal-ansiGreen: #4ADE80;
-  --vscode-terminal-ansiYellow: #FBBF24;
-  --vscode-errorForeground: #EF4444;
-  --vscode-descriptionForeground: #94A3B8;
-  --vscode-activityBar-background: #1E212B;
-}
+/* 
+ * VSCode WebView Theme Integration
+ * VSCode automatically injects CSS variables for theme colors.
+ * We do NOT set fallbacks in :root because that would override VSCode's injected values.
+ * Fallbacks are only in tailwind.config.js for standalone development.
+ */
 
 body {
   background-color: var(--vscode-editor-background);
@@ -31,31 +21,181 @@ body {
 #root {
   width: 100vw;
   height: 100vh;
+  background: var(--vscode-editor-background);
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - matches VSCode */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--vscode-editor-background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--vscode-panel-border);
-  border-radius: 3px;
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4B5563;
+  background: var(--vscode-scrollbarSlider-hoverBackground);
 }
 
-/* Glass panel effect */
+::-webkit-scrollbar-thumb:active {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+/* Glass panel effect - adapts to theme */
 .glass-panel {
-  background: rgba(30, 33, 43, 0.7);
+  background: color-mix(in srgb, var(--vscode-sideBar-background) 85%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--vscode-panel-border);
+}
+
+/* Graph canvas background - uses editor background */
+.graph-canvas {
+  background: var(--vscode-editor-background);
+}
+
+/* Node styling that adapts to theme */
+.graph-node {
+  fill: var(--vscode-sideBar-background);
+  stroke: var(--vscode-panel-border);
+}
+
+.graph-node:hover {
+  fill: var(--vscode-list-hoverBackground);
+}
+
+.graph-node.selected {
+  stroke: var(--vscode-focusBorder);
+  stroke-width: 2;
+}
+
+/* Edge styling */
+.graph-edge {
+  stroke: var(--vscode-editorWidget-border, var(--vscode-panel-border));
+}
+
+.graph-edge.semantic {
+  stroke: var(--vscode-textLink-foreground);
+}
+
+/* Button styling that matches VSCode */
+.vscode-button {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s ease;
+}
+
+.vscode-button:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+
+.vscode-button.secondary {
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+}
+
+.vscode-button.secondary:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* Input styling */
+.vscode-input {
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, transparent);
+  padding: 6px 10px;
+  border-radius: 4px;
+  outline: none;
+  font-size: 13px;
+}
+
+.vscode-input:focus {
+  border-color: var(--vscode-focusBorder);
+}
+
+.vscode-input::placeholder {
+  color: var(--vscode-input-placeholderForeground);
+}
+
+/* Badge/pill styling */
+.vscode-badge {
+  background: var(--vscode-badge-background);
+  color: var(--vscode-badge-foreground);
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* Panel styling */
+.vscode-panel {
+  background: var(--vscode-panel-background, var(--vscode-sideBar-background));
+  border: 1px solid var(--vscode-panel-border);
+}
+
+/* List styling */
+.vscode-list-item {
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.vscode-list-item:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+
+.vscode-list-item.active {
+  background: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* Toolbar styling */
+.toolbar {
+  background: var(--vscode-editor-background);
+  border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+/* Sidebar styling */
+.sidebar {
+  background: var(--vscode-sideBar-background);
+  border-right: 1px solid var(--vscode-sideBar-border, var(--vscode-panel-border));
+}
+
+/* Status colors */
+.status-success {
+  color: var(--vscode-terminal-ansiGreen);
+}
+
+.status-warning {
+  color: var(--vscode-terminal-ansiYellow);
+}
+
+.status-error {
+  color: var(--vscode-errorForeground);
+}
+
+/* Animation keyframes */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--vscode-focusBorder) 40%, transparent);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 5px color-mix(in srgb, var(--vscode-focusBorder) 20%, transparent);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

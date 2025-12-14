@@ -437,17 +437,17 @@ const App: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="flex w-full h-screen bg-background text-text items-center justify-center">
+            <div className="flex w-full h-screen items-center justify-center" style={{ background: 'var(--vscode-editor-background)', color: 'var(--vscode-editor-foreground)' }}>
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                    <p className="text-textMuted">Loading workspace...</p>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--vscode-focusBorder)' }}></div>
+                    <p style={{ color: 'var(--vscode-descriptionForeground)' }}>Loading workspace...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="flex w-full h-screen bg-background text-text overflow-hidden relative">
+        <div className="flex w-full h-screen overflow-hidden relative" style={{ background: 'var(--vscode-editor-background)', color: 'var(--vscode-editor-foreground)' }}>
             <div className={`transition-all duration-300 ${isSidebarOpen ? 'w-[18rem]' : 'w-0'} overflow-hidden relative border-r border-border shrink-0`}>
                 <Sidebar
                     fileTree={renderedTree}
